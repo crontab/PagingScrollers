@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		3651E96123F59EDE003DFA33 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3651E96023F59EDE003DFA33 /* AppDelegate.swift */; };
-		3651E96323F59EDE003DFA33 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3651E96223F59EDE003DFA33 /* SceneDelegate.swift */; };
 		3651E96523F59EDE003DFA33 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3651E96423F59EDE003DFA33 /* MainViewController.swift */; };
 		3651E96823F59EDE003DFA33 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3651E96623F59EDE003DFA33 /* Main.storyboard */; };
 		3651E96A23F59EE0003DFA33 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3651E96923F59EE0003DFA33 /* Assets.xcassets */; };
@@ -18,7 +17,6 @@
 /* Begin PBXFileReference section */
 		3651E95D23F59EDE003DFA33 /* PagingScrollers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PagingScrollers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3651E96023F59EDE003DFA33 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3651E96223F59EDE003DFA33 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		3651E96423F59EDE003DFA33 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		3651E96723F59EDE003DFA33 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3651E96923F59EE0003DFA33 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -59,7 +57,6 @@
 				3651E96423F59EDE003DFA33 /* MainViewController.swift */,
 				3651E96623F59EDE003DFA33 /* Main.storyboard */,
 				3651E96023F59EDE003DFA33 /* AppDelegate.swift */,
-				3651E96223F59EDE003DFA33 /* SceneDelegate.swift */,
 				3651E96923F59EE0003DFA33 /* Assets.xcassets */,
 				3651E96B23F59EE0003DFA33 /* LaunchScreen.storyboard */,
 				3651E96E23F59EE0003DFA33 /* Info.plist */,
@@ -140,7 +137,6 @@
 			files = (
 				3651E96523F59EDE003DFA33 /* MainViewController.swift in Sources */,
 				3651E96123F59EDE003DFA33 /* AppDelegate.swift in Sources */,
-				3651E96323F59EDE003DFA33 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,6 +283,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XJ35PC86R6;
 				INFOPLIST_FILE = PagingScrollers/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -305,6 +302,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XJ35PC86R6;
 				INFOPLIST_FILE = PagingScrollers/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
