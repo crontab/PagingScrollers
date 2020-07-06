@@ -11,13 +11,43 @@ import UIKit
 
 class PagingScroller: UIScrollView, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
 
-	// MARK: - setup
+	// MARK: - public interface
+
+	var pages: [UIViewController] = [] {
+		didSet {
+			contentSize = .zero
+			contentOffset = .zero
+			scrollers = pages.map({ $0.view as? UIScrollView })
+			currentIndex = 0
+		}
+	}
+
+
+	var currentIndex: Int {
+		get {
+			_currentIndex
+		}
+		set {
+			pager.setViewControllers([pages[newValue]], direction: newValue > _currentIndex ? .forward : .reverse, animated: true, completion: nil)
+			willPage(to: newValue)
+			_currentIndex = newValue
+			didPage()
+		}
+	}
+
+
+	// MARK: - internal
 
 	private var pager = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
 	private var scrollers: [UIScrollView?] = []
+	private var _currentIndex: Int = 0
+
 
 	override func awakeFromNib() {
 		super.awakeFromNib()
+
+		showsVerticalScrollIndicator = false
+		alwaysBounceVertical = true
 
 		pager.view.frame = bounds
 		pager.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -25,37 +55,27 @@ class PagingScroller: UIScrollView, UIPageViewControllerDataSource, UIPageViewCo
 
 		pager.delegate = self
 		pager.dataSource = self
-
-		showsVerticalScrollIndicator = true
 	}
 
 
-	private func updateLayout() {
-		var newSize = bounds.size
-		for scroller in scrollers.compactMap({ $0 }) {
-			newSize.height = max(newSize.height, scroller.contentSize.height)
+	private func willPage(to index: Int) {
+		if !scrollers.isEmpty, let scroller = scrollers[index] {
 			scroller.contentInset = contentInset
 		}
-		contentSize = newSize
 	}
 
 
-	// MARK: - public interface
-
-	var pages: [UIViewController] = [] {
-		didSet {
-			scrollers = pages.map({ $0.view as? UIScrollView })
-			pager.setViewControllers([pages[0]], direction: .forward, animated: false, completion: nil)
-			updateLayout()
+	private func didPage() {
+		if !scrollers.isEmpty, let scroller = scrollers[_currentIndex] {
+			contentSize = scroller.contentSize
+			contentOffset = scroller.contentOffset
 		}
 	}
 
 
-	var currentIndex: Int = 0 {
-		didSet {
-			// profileTabControllerDelegate?.profileTabControllerWillChangeIndex(currentPage)
-			pager.setViewControllers([pages[currentIndex]], direction: currentIndex > oldValue ? .forward : .reverse, animated: true, completion: nil)
-			updateLayout()
+	private func didScroll() {
+		if !scrollers.isEmpty, let scroller = scrollers[_currentIndex] {
+			scroller.contentOffset = contentOffset
 		}
 	}
 
@@ -64,14 +84,20 @@ class PagingScroller: UIScrollView, UIPageViewControllerDataSource, UIPageViewCo
 
 	override func layoutSubviews() {
 		super.layoutSubviews()
+		if contentSize.height == 0 {
+			didPage()
+		}
+		// Pass the scroll position down to nested scroll views, to create an illustion that the user is moving the nested ones
+		didScroll()
+		// At the same time, keep the pager itself "floating", i.e. fixed
 		pager.view.frame.origin.y = contentOffset.y
 	}
 
 
-	override var contentOffset: CGPoint {
+	override var contentInset: UIEdgeInsets {
 		didSet {
-			if currentIndex < scrollers.count, let scroller = scrollers[currentIndex] {
-				scroller.contentOffset = contentOffset
+			for scroller in scrollers {
+				scroller?.contentInset = contentInset
 			}
 		}
 	}
@@ -83,7 +109,6 @@ class PagingScroller: UIScrollView, UIPageViewControllerDataSource, UIPageViewCo
 		guard let index = pages.firstIndex(of: viewController), index > 0 else {
 			return nil
 		}
-		// profileTabControllerDelegate?.profileTabControllerWillChangeIndex(Page(rawValue:index - 1)!)
 		return pages[index - 1]
 	}
 
@@ -92,12 +117,20 @@ class PagingScroller: UIScrollView, UIPageViewControllerDataSource, UIPageViewCo
 		guard let index = pages.firstIndex(of: viewController), index < pages.count - 1 else {
 			return nil
 		}
-		// profileTabControllerDelegate?.profileTabControllerWillChangeIndex(Page(rawValue:index - 1)!)
 		return pages[index + 1]
 	}
 
 
+	func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
+		let newIndex = pages.firstIndex(of: pager.viewControllers!.first!)!
+		willPage(to: newIndex)
+	}
+
+
 	func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-		currentIndex = pages.firstIndex(of: pager.viewControllers!.first!)!
+		if completed {
+			_currentIndex = pages.firstIndex(of: pager.viewControllers!.first!)!
+			didPage()
+		}
 	}
 }
