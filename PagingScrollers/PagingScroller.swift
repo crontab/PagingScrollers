@@ -9,7 +9,17 @@
 import UIKit
 
 
+@objc protocol PagingScrollerDelegate: class {
+	func pagingScroller(_ pagingScroller: PagingScroller, didSelectIndex index: Int) // for interactive swipes only
+}
+
+
+@IBDesignable
 class PagingScroller: UIScrollView, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
+
+	@IBOutlet
+	public weak var pagingScrollerDelegate: PagingScrollerDelegate?
+
 
 	// MARK: - public interface
 
@@ -130,6 +140,7 @@ class PagingScroller: UIScrollView, UIPageViewControllerDataSource, UIPageViewCo
 	func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
 		if completed {
 			_currentIndex = pages.firstIndex(of: pager.viewControllers!.first!)!
+			pagingScrollerDelegate?.pagingScroller(self, didSelectIndex: _currentIndex)
 			didPage()
 		}
 	}

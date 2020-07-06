@@ -13,6 +13,7 @@
 		3651E96A23F59EE0003DFA33 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3651E96923F59EE0003DFA33 /* Assets.xcassets */; };
 		3651E96D23F59EE0003DFA33 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3651E96B23F59EE0003DFA33 /* LaunchScreen.storyboard */; };
 		36DDE1E624AF86FD001E73FB /* PagingScroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36DDE1E524AF86FD001E73FB /* PagingScroller.swift */; };
+		36FD736E24B3937800599200 /* SegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FD736D24B3937800599200 /* SegmentedControl.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		3651E96C23F59EE0003DFA33 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3651E96E23F59EE0003DFA33 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		36DDE1E524AF86FD001E73FB /* PagingScroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingScroller.swift; sourceTree = "<group>"; };
+		36FD736D24B3937800599200 /* SegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControl.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 		3651E95F23F59EDE003DFA33 /* PagingScrollers */ = {
 			isa = PBXGroup;
 			children = (
+				36FD736D24B3937800599200 /* SegmentedControl.swift */,
 				36DDE1E524AF86FD001E73FB /* PagingScroller.swift */,
 				3651E96423F59EDE003DFA33 /* MainViewController.swift */,
 				3651E96623F59EDE003DFA33 /* Main.storyboard */,
@@ -140,6 +143,7 @@
 			files = (
 				3651E96523F59EDE003DFA33 /* MainViewController.swift in Sources */,
 				3651E96123F59EDE003DFA33 /* AppDelegate.swift in Sources */,
+				36FD736E24B3937800599200 /* SegmentedControl.swift in Sources */,
 				36DDE1E624AF86FD001E73FB /* PagingScroller.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

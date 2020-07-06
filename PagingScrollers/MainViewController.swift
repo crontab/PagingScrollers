@@ -45,9 +45,10 @@ class RightViewController: TestTableViewController {
 }
 
 
-class MainViewController: UIViewController, UIScrollViewDelegate {
+class MainViewController: UIViewController, PagingScrollerDelegate, SegmentedControlDelegate, UIScrollViewDelegate {
 
-	@IBOutlet var pagingScroller: PagingScroller!
+	@IBOutlet private var pagingScroller: PagingScroller!
+	@IBOutlet private var segmentedControl: SegmentedControl!
 
 
 	override func viewDidLoad() {
@@ -59,5 +60,14 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
 		]
 
 		// pagingScroller.contentInset.top = 100
+	}
+
+
+	func segmentedControl(_ segmentedControl: SegmentedControl, didSelectIndex index: Int) {
+		pagingScroller.currentIndex = index
+	}
+
+	func pagingScroller(_ pagingScroller: PagingScroller, didSelectIndex index: Int) {
+		segmentedControl.setSelectedSegmentIndex(index, animated: true)
 	}
 }
